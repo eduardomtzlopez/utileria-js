@@ -97,17 +97,15 @@ console.log(salarioStr); // "$25,000.50"
 A continuación, se demuestra la librería en acción desde la interfaz de usuario y la consola del navegador:
 
 *Fig 1. Validaciones actuando en tiempo real en el formulario de registro.*
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/43402d2e-6772-428e-a568-ee082cf2a3d3" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/61e59e83-2ce9-44dd-9dcc-d3216bf43b99" />
+<img width="1918" height="977" alt="image" src="https://github.com/user-attachments/assets/d2335031-7677-4c3c-b8f6-80abc8431578" />
 
 
 *Fig 2. Pruebas de las funciones puras ejecutadas directamente en la consola.*
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/34a56af3-167e-4c79-890c-9337c9dd0c89" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/41030dab-b72f-427e-b94d-ebd63ebdce09" />
+<img width="1918" height="968" alt="image" src="https://github.com/user-attachments/assets/84ccc5e9-a094-4425-a90f-b1982f5f4980" />
 
 ---
 
-## 🎥 Demo en Video (Pitch)
+## Demo en Video
 
 En el siguiente video de 60 segundos explico el propósito de la librería y una demostración funcional en vivo.
 
