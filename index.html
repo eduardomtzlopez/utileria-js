@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Utilería JS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registro de Usuario</h2>
+        <form id="registroForm">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" placeholder="Ej. juan perez (se auto-corregirá)">
+                <span class="error-msg" id="error-nombre">Solo se permiten letras.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="salario">Salario Mensual Esperado:</label>
+                <input type="text" id="salario" placeholder="Ej. 15000">
+                <small style="color: #666; font-size: 0.75rem;">Formato automático al salir del campo.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="text" id="correo" placeholder="ejemplo@correo.com">
+                <span class="error-msg" id="error-correo">Formato de correo inválido.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña segura:</label>
+                <input type="password" id="password" placeholder="Mín 8 caracteres, 1 Mayus, 1 num, 1 especial">
+                <span class="error-msg" id="error-password">La contraseña no cumple los requisitos.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono (10 dígitos):</label>
+                <input type="number" id="telefono" placeholder="Ej. 5512345678">
+                <span class="error-msg" id="error-telefono">Debe tener exactamente 10 dígitos.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha">
+                <span class="error-msg" id="error-fecha">Debes ser mayor de edad para registrarte.</span>
+            </div>
+
+            <button type="submit">Registrar y Calcular Edad</button>
+        </form>
+        <p style="text-align: center; margin-top: 15px;"><a href="login.html">Ir al Login</a></p>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <h3>¡Registro Exitoso!</h3>
+            <p id="modalText"></p>
+            <button type="button" id="cerrarModal">Aceptar e ir al Login</button>
+        </div>
+    </div>
+
+    <script src="js/utileria.js"></script>
+    <script>
+        // Aplicación de Funciones Libres en tiempo real
+        const inputNombre = document.getElementById('nombre');
+        const inputSalario = document.getElementById('salario');
+
+        inputNombre.addEventListener('blur', function() {
+            if (this.value) this.value = capitalizarNombres(this.value);
+        });
+
+        inputSalario.addEventListener('blur', function() {
+            const numeroLimpio = this.value.replace(/[^0-9.-]+/g, ""); 
+            if (numeroLimpio) this.value = formatearMoneda(numeroLimpio);
+        });
+
+        // Lógica del Formulario
+        const form = document.getElementById('registroForm');
+        const modal = document.getElementById('modal');
+        const modalText = document.getElementById('modalText');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const password = document.getElementById('password').value;
+            const telefono = document.getElementById('telefono').value;
+            const fecha = document.getElementById('fecha').value;
+
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+
+            let formValido = true;
+
+            if (!soloLetras(nombre)) {
+                document.getElementById('error-nombre').style.display = 'block';
+                formValido = false;
+            }
+            if (!validarCorreo(correo)) {
+                document.getElementById('error-correo').style.display = 'block';
+                formValido = false;
+            }
+            if (!validarPassword(password)) {
+                document.getElementById('error-password').style.display = 'block';
+                formValido = false;
+            }
+            if (!validarLongitud(telefono, 10)) {
+                document.getElementById('error-telefono').style.display = 'block';
+                formValido = false;
+            }
+            if (!fecha || !esMayorDeEdad(fecha)) {
+                document.getElementById('error-fecha').style.display = 'block';
+                formValido = false;
+            }
+
+            if (formValido) {
+                // Guarda las credenciales para el Login
+                localStorage.setItem('usuarioCorreo', correo);
+                localStorage.setItem('usuarioPassword', password);
+
+                const edad = calcularEdad(fecha); 
+                
+                modalText.innerHTML = `Bienvenido <strong>${nombre}</strong>.<br>Tienes <strong>${edad} años</strong>.<br><br><small>Tus credenciales han sido guardadas localmente.</small>`;
+                modal.classList.add('active'); 
+            }
+        });
+
+        document.getElementById('cerrarModal').addEventListener('click', () => {
+            modal.classList.remove('active');
+            window.location.href = 'login.html'; 
+        });
+    </script>
+</body>
+</html>
