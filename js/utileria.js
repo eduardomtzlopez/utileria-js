@@ -1,6 +1,5 @@
 /**
  * LIBRERÍA DE UTILERÍAS JS
- * Autor: [Escribe tu Nombre]
  * Descripción: Colección de funciones puras para validación y formateo de datos.
  */
 
